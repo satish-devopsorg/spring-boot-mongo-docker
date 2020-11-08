@@ -90,6 +90,21 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<distributionManagement>
+	   <repository>
+	      <id>nexus</id>
+	      <name>springbootapprepository</name>
+	      <url>http://127.0.0.1:8081/repository/springbootapp/</url>
+	    </repository>
+	    
+	    <snapshotRepository>
+	      <id>nexus</id>
+	      <name>Mithun Technologies Snapshot Nexus Repository </name>
+	      <url>http://127.0.0.1:8081/repository/springbootappsnap/</url>
+	    </snapshotRepository>
+	    
+	</distributionManagement>
+	
 	<build>
 		<plugins>
 			<plugin>
