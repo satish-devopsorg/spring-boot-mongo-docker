@@ -1,5 +1,5 @@
 node {
-
+def builnumber = BUILD_NUMBER
  stage("Git Clone"){
         git url: 'https://github.com/satish-devopsorg/spring-boot-mongo-docker.git',branch: 'master'
     
@@ -13,7 +13,7 @@ node {
     
     stage("Build Docker Image"){
       
-      sh 'docker build -t satishrekha/springboot:1 .'
+      sh 'docker build -t satishrekha/springboot:${builnumber} .'
     }   
 
   stage('Push Docker Image'){
@@ -22,13 +22,11 @@ node {
           sh 'docker push satishrekha/springboot'
         }
  }
-  stage('Dockercompose Deployment '){
-		  def dockercompose = 'docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d'
-		  sshagent(['Docker_Dev_Server_SSH']) {
-		   sh 'ssh -o StrictHostKeyChecking=no satish@10.0.2.15 ${dockercompose}'
-		   }     
-        
-     }
-       
+   stage('Docker Compose'){
+       withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Pwd')]) {
+       sh "docker login -u satishrekha -p ${Docker_Hub_Pwd}"
+       sh 'docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d'
+        }
+ }
        
     }
