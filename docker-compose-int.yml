@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+   springwebapp:
+       image: satishrekha/springboot:1
+       restart: always
+       container_name: springcontainer
+       ports:
+       - 8086:8080
+       networks:
+       - springappnetwork
+       depends_on:
+       - mongo        
+       environment:
+       - MONGO_DB_HOSTNAME=mongo
+       - MONGO_DB_USERNAME=intdb
+       - MONGO_DB_PASSWORD=intdb1234
+       working_dir: /opt/app
+   mongo:
+       image: mongo
+       restart: always
+       container_name: mongocontainer
+       networks:
+       - springappnetwork
+       environment:
+       - MONGO_INITDB_ROOT_USERNAME=intdb
+       - MONGO_INITDB_ROOT_PASSWORD=intdb1234
+       volumes:
+       - mongovol:/data/db
+volumes:
+       mongovol:
+networks:
+       springappnetwork:
+ 
