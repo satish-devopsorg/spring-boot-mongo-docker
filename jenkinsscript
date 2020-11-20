@@ -19,9 +19,16 @@ node {
   stage('Push Docker Image'){
        withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Pwd')]) {
           sh "docker login -u satishrekha -p ${Docker_Hub_Pwd}"
+          sh 'docker push satishrekha/springboot'
         }
-        sh 'docker push satishrekha/springboot'
-        sh 'sudo docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d'
+ 
+  stage('Dockercompose Deployment '){
+  sshagent(['Docker_Dev_Server_SSH']) {
+     sh 'sudo docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d'
+}     
+        
+    
+       
     }
     }
     
