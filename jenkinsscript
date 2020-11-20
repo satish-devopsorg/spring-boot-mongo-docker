@@ -21,14 +21,14 @@ node {
           sh "docker login -u satishrekha -p ${Docker_Hub_Pwd}"
           sh 'docker push satishrekha/springboot'
         }
- 
+ }
   stage('Dockercompose Deployment '){
-  sshagent(['Docker_Dev_Server_SSH']) {
-     sh 'sudo docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d'
-}     
+		  def dockercompose = 'docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d'
+		  sshagent(['Docker_Dev_Server_SSH']) {
+		   sh 'ssh -o StrictHostKeyChecking=no satish@10.0.2.15 ${dockercompose}'
+		   }     
         
-    }
+     }
+       
        
     }
-    }
-    
