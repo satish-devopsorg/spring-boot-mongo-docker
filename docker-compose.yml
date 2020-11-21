@@ -23,7 +23,7 @@ services:
        - springappnetwork
        environment:
        - MONGO_INITDB_ROOT_USERNAME=intdb
-       - MONGO_INITDB_ROOT_PASSWORD=intdbdb1234
+       - MONGO_INITDB_ROOT_PASSWORD=intdb1234
        volumes:
        - mongovol:/data/db
 volumes:
