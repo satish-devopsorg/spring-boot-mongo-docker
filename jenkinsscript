@@ -1,5 +1,5 @@
 node {
-def buildnumber = BUILD_NUMBER
+echo "Jenkins Job Number ${env.BUILD_NUMBER}"
  stage("Git Clone"){
         git url: 'https://github.com/satish-devopsorg/spring-boot-mongo-docker.git',branch: 'master'
     
@@ -13,13 +13,13 @@ def buildnumber = BUILD_NUMBER
     
     stage("Build Docker Image"){
       
-      sh 'docker build -t satishrekha/springboot:${buildnumber} .'
+      sh 'docker build -t satishrekha/springboot:${env.BUILD_NUMBER} .'
     }   
 
   stage('Push Docker Image'){
        withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Pwd')]) {
           sh "docker login -u satishrekha -p ${Docker_Hub_Pwd}"
-          sh "docker push satishrekha/springboot:${buildnumber}"
+          sh "docker push satishrekha/springboot:${env.BUILD_NUMBER}"
         }
  }
    stage('Docker Compose'){
