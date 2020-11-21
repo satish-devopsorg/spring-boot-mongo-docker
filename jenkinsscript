@@ -1,5 +1,5 @@
 node {
-def builnumber = BUILD_NUMBER
+def buildnumber = BUILD_NUMBER
  stage("Git Clone"){
         git url: 'https://github.com/satish-devopsorg/spring-boot-mongo-docker.git',branch: 'master'
     
@@ -13,7 +13,7 @@ def builnumber = BUILD_NUMBER
     
     stage("Build Docker Image"){
       
-      sh 'docker build -t satishrekha/springboot:${builnumber} .'
+      sh 'docker build -t satishrekha/springboot:${buildnumber} .'
     }   
 
   stage('Push Docker Image'){
