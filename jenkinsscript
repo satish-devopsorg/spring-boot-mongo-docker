@@ -1,5 +1,5 @@
 node {
-echo "Jenkins Job Number ${env.BUILD_NUMBER}"
+    def buildNumber = BUILD_NUMBER
  stage("Git Clone"){
         git url: 'https://github.com/satish-devopsorg/spring-boot-mongo-docker.git',branch: 'master'
     
