@@ -1,7 +1,7 @@
 version: "3.3"
 services:
    springwebapp:
-       image: 10.0.2.15:8083/springboot
+       image: 10.0.2.15:8083/springboot:latest
        restart: always
        container_name: springcontainer
        ports:
