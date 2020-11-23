@@ -28,5 +28,7 @@ services:
        - mongovol:/data/db
 volumes:
        mongovol:
+       external: true
 networks:
        springappnetwork:
+       external: true 
